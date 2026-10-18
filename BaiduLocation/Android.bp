@@ -1,0 +1,38 @@
+prebuilt_etc {
+    name: "privapp-permissions-com.baidu.map.location.xml",
+    src: "privapp-permissions-com.baidu.map.location.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "default-permissions-com.baidu.map.location.xml",
+    src: "default-permissions-com.baidu.map.location.xml",
+    sub_dir: "default-permissions",
+    product_specific: true,
+}
+
+// Baidu network location provider.
+//
+// Privileged because it requests INSTALL_LOCATION_PROVIDER to register itself with
+// LocationManagerService, and it needs the com.android.location.provider library to do so.
+// Signed by Baidu, so presigned: true and no re-signing.
+android_app_import {
+    name: "BaiduLocation",
+    apk: "BaiduLocation.apk",
+    privileged: true,
+    presigned: true,
+    // 已由发布方签名/对齐，soong 不再处理（targetSdk >= 30 的 presigned 预编译必须声明）
+    preprocessed: true,
+    // 商店/厂商 APK 里 dex 是压缩的，而特权应用要求 dex 不压缩；重打包会破坏百度签名，
+    // 所以跳过 soong 的对齐/解压检查（该应用不到 1MB，压缩 dex 无实际影响）。
+    skip_preprocessed_apk_checks: true,
+    uses_libs: [
+        "com.android.location.provider",
+    ],
+    required: [
+        "privapp-permissions-com.baidu.map.location.xml",
+        "default-permissions-com.baidu.map.location.xml",
+    ],
+    product_specific: true,
+}

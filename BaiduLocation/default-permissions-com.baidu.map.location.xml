@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Runtime permissions granted to the Baidu location provider at boot.
+
+    A network location provider has no UI to ask for them, so they have to come from here.
+    ACCESS_BACKGROUND_LOCATION is required on Android 10+ for the provider to receive updates
+    while no app is in the foreground.
+-->
+<exceptions>
+    <exception package="com.baidu.map.location">
+        <permission name="android.permission.ACCESS_FINE_LOCATION" fixed="false"/>
+        <permission name="android.permission.ACCESS_COARSE_LOCATION" fixed="false"/>
+        <permission name="android.permission.ACCESS_BACKGROUND_LOCATION" fixed="false"/>
+    </exception>
+</exceptions>

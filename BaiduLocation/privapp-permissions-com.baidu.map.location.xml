@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Privileged permissions of the Baidu network location provider (com.baidu.map.location).
+
+    Needed because the build sets ro.control_privapp_permissions=enforce. The list is the
+    intersection of the uses-permission entries of BaiduLocation.apk (5.2.0) and the
+    signature|privileged permissions declared by frameworks/base.
+
+    INSTALL_LOCATION_PROVIDER is what lets the app register itself as a network location provider
+    through LocationManagerService.
+-->
+<permissions>
+    <privapp-permissions package="com.baidu.map.location">
+        <permission name="android.permission.INSTALL_LOCATION_PROVIDER"/>
+        <permission name="android.permission.INTERACT_ACROSS_USERS"/>
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+    </privapp-permissions>
+</permissions>

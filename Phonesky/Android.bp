@@ -1,0 +1,39 @@
+prebuilt_etc {
+    name: "privapp-permissions-com.android.vending.xml",
+    src: "privapp-permissions-com.android.vending.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "sysconfig-com.android.vending.xml",
+    src: "sysconfig-com.android.vending.xml",
+    sub_dir: "sysconfig",
+    product_specific: true,
+}
+
+// Real Google Play Store, signed by Google.
+//
+// This replaced the FakeStore stub: only one package providing com.android.vending may be in
+// PRODUCT_PACKAGES, and the store no longer needs the FAKE_PACKAGE_SIGNATURE grant that the stub
+// relied on (signature spoofing is still what lets GmsCore answer as com.google.android.gms).
+android_app_import {
+    name: "Phonesky",
+    apk: "Phonesky.apk",
+    privileged: true,
+    presigned: true,
+    // 已由发布方签名/对齐，soong 不再处理（targetSdk >= 30 的 presigned 预编译必须声明）
+    preprocessed: true,
+    // 必须与 manifest 里的 <uses-library> 顺序和内容完全一致，否则 enforce_uses_libraries 报错。
+    optional_uses_libs: [
+        "org.apache.http.legacy",
+        "android.ext.adservices",
+        "androidx.window.extensions",
+        "androidx.window.sidecar",
+    ],
+    required: [
+        "privapp-permissions-com.android.vending.xml",
+        "sysconfig-com.android.vending.xml",
+    ],
+    product_specific: true,
+}

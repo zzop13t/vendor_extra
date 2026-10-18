@@ -1,8 +1,7 @@
 PRODUCT_PACKAGES += \
 	GmsCore \
 	GsfProxy \
-	FakeStore \
+	Phonesky \
+	BaiduLocation \
 	IchnaeaNlpBackend \
-	NominatimGeocoderBackend \
-	FDroid \
-	additional_repos.xml
+	NominatimGeocoderBackend

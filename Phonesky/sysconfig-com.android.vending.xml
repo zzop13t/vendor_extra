@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    System configuration for the Google Play Store (com.android.vending).
+
+    Subset of PixelOS proprietary_vendor_pixel_gms-17
+    (product/etc/sysconfig/google.xml), reduced to the entries that concern the store and to the
+    tags this release of SystemConfig actually understands.
+-->
+<config>
+    <!-- Auto-updates may run while the device is dozing. -->
+    <allow-in-power-save-except-idle package="com.android.vending" />
+
+    <!-- Open play.google.com and market:// links with the store. -->
+    <app-link package="com.android.vending" />
+
+    <!-- Installs by the store are eligible for rollback. -->
+    <rollback-whitelisted-app package="com.android.vending" />
+
+    <!-- The store may update GMS and the verifier on its own. -->
+    <update-ownership package="com.google.android.gms" installer="com.android.vending" />
+    <update-ownership package="com.google.android.verifier" installer="com.android.vending" />
+</config>
