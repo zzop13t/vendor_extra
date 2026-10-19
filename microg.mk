@@ -3,5 +3,6 @@ PRODUCT_PACKAGES += \
 	GsfProxy \
 	Phonesky \
 	BaiduLocation \
+	libnlocSDK7d \
 	IchnaeaNlpBackend \
 	NominatimGeocoderBackend

@@ -12,6 +12,27 @@ prebuilt_etc {
     product_specific: true,
 }
 
+// Baidu 的定位 SDK 通过 System.loadLibrary("nlocSDK7d") 加载 native 库，
+// 但预编译 APK 里的 .so 是压缩存放的，系统应用又不会在安装时解压到 lib/ 目录，
+// 结果 loadLibrary 找不到库，类初始化抛 ExceptionInInitializerError（应用直接闪退）。
+// 把 arm64 的库单独装到 /product/lib64（和 libjni_latinime.so 同样能被应用加载）。
+cc_prebuilt_library_shared {
+    name: "libnlocSDK7d",
+    arch: {
+        arm64: {
+            srcs: ["lib64/libnlocSDK7d.so"],
+        },
+    },
+    compile_multilib: "64",
+    installable: true,
+    strip: {
+        none: true,
+    },
+    // 第三方预编译库：依赖里带 libstdc++（AOSP 树里没有这个模块），跳过 ELF 依赖校验
+    check_elf_files: false,
+    product_specific: true,
+}
+
 // Baidu network location provider.
 //
 // Privileged because it requests INSTALL_LOCATION_PROVIDER to register itself with
